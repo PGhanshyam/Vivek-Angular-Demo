@@ -1,0 +1,200 @@
+<!-- Modal Overlay Backdrop -->
+<div class="modal-overlay" (click)="closeModal()">
+
+    <!-- Add User Modal Content -->
+    <div class="add-user-modal" (click)="$event.stopPropagation()">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+            <h2>Add New User</h2>
+            <button type="button" class="close-button" (click)="closeModal()" aria-label="Close">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="15" y1="9" x2="9" y2="15"></line>
+                    <line x1="9" y1="9" x2="15" y2="15"></line>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Form -->
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="modal-form">
+
+            <!-- Profile Avatar Upload Area -->
+            <div class="profile-upload-container">
+                <div class="profile-avatar-wrapper">
+
+                    <img *ngIf="profileImagePreview" [src]="profileImagePreview" alt="Profile Image"
+                        class="avatar-preview" />
+
+                    <div *ngIf="!profileImagePreview" class="default-profile-avatar">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24"
+                            fill="#a0aec0">
+                            <path
+                                d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                        </svg>
+                    </div>
+
+                    <!-- Pink Camera/Image Badge -->
+                    <label for="profileImage" class="image-upload-badge" title="Upload profile image">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                            <polyline points="21 15 16 10 5 21"></polyline>
+                        </svg>
+                    </label>
+
+                    <input #imageInput id="profileImage" type="file" accept="image/png,image/jpeg,image/jpg,image/webp"
+                        (change)="onProfileImageChange($event)" class="hidden-file-input" />
+                </div>
+
+                <button *ngIf="profileImagePreview" type="button" class="remove-image-btn"
+                    (click)="removeProfileImage(imageInput)">
+                    Remove Image
+                </button>
+            </div>
+
+            <!-- Form Grid Fields -->
+            <div class="form-grid">
+
+                <!-- First Name -->
+                <div class="form-group">
+                    <label>First Name<span class="required">*</span></label>
+                    <input type="text" formControlName="firstName" placeholder="First Name"
+                        [class.invalid-input]="formControls['firstName'].touched && formControls['firstName'].invalid" />
+                    <small *ngIf="formControls['firstName'].touched && formControls['firstName'].invalid"
+                        class="error-msg">
+                        First name is required.
+                    </small>
+                </div>
+
+                <!-- Last Name -->
+                <div class="form-group">
+                    <label>Last Name<span class="required">*</span></label>
+                    <input type="text" formControlName="lastName" placeholder="Last Name"
+                        [class.invalid-input]="formControls['lastName'].touched && formControls['lastName'].invalid" />
+                    <small *ngIf="formControls['lastName'].touched && formControls['lastName'].invalid"
+                        class="error-msg">
+                        Last name is required.
+                    </small>
+                </div>
+
+                <!-- Role -->
+                <div class="form-group full-width">
+                    <label>Role<span class="required">*</span></label>
+                    <div class="select-wrapper">
+                        <select formControlName="roleId"
+                            [class.invalid-input]="formControls['roleId'].touched && formControls['roleId'].invalid">
+                            <option value="">Select Role</option>
+                            <option *ngFor="let role of roles" [value]="role.roleId">
+                                {{ role.roleName }}
+                            </option>
+                        </select>
+                    </div>
+                    <small *ngIf="formControls['roleId'].touched && formControls['roleId'].invalid" class="error-msg">
+                        Role is required.
+                    </small>
+                </div>
+
+                <!-- Email -->
+                <div class="form-group">
+                    <label>Email<span class="required">*</span></label>
+                    <input type="email" formControlName="email" placeholder="Email address"
+                        [class.invalid-input]="formControls['email'].touched && formControls['email'].invalid" />
+                    <small *ngIf="formControls['email'].touched && formControls['email'].invalid" class="error-msg">
+                        {{ formControls['email'].errors?.['required']
+                        ? 'Email address is required.'
+                        : 'Enter a valid email address.' }}
+                    </small>
+                </div>
+
+                <!-- Phone No. -->
+                <div class="form-group">
+                    <label>Phone No.<span class="required">*</span></label>
+                    <input type="text" formControlName="phoneNo" placeholder="(000) 000-0000" maxlength="10"
+                        [class.invalid-input]="formControls['phoneNo'].touched && formControls['phoneNo'].invalid" />
+                    <small *ngIf="formControls['phoneNo'].touched && formControls['phoneNo'].invalid" class="error-msg">
+                        {{ formControls['phoneNo'].errors?.['required']
+                        ? 'PhoneNo is required.'
+                        : 'Enter a valid phone number.' }}
+                    </small>
+                </div>
+
+                <!-- Address -->
+                <div class="form-group full-width">
+                    <label>Address</label>
+                    <input type="text" formControlName="address" placeholder="Howard Rd" />
+                </div>
+
+                <!-- Country -->
+                <div class="form-group">
+                    <label>Country<span class="required">*</span></label>
+                    <div class="select-wrapper">
+                        <select formControlName="country">
+                            <option value="">Select Country</option>
+                            <option *ngFor="let country of countries" [value]="country">
+                                {{ country }}
+                            </option>
+                        </select>
+                    </div>
+                    <small *ngIf="formControls['country'].touched && formControls['country'].invalid" class="error-msg">
+                        Country is required.
+                    </small>
+                </div>
+
+                <!-- State -->
+                <div class="form-group">
+                    <label>State<span class="required">*</span></label>
+                    <div class="select-wrapper">
+                        <select formControlName="state">
+                            <option value="">Select State</option>
+                            <option *ngFor="let state of states" [value]="state">
+                                {{ state }}
+                            </option>
+                        </select>
+                    </div>
+                    <small *ngIf="formControls['state'].touched && formControls['state'].invalid" class="error-msg">
+                        State is required.
+                    </small>
+                </div>
+
+                <!-- City -->
+                <div class="form-group">
+                    <label>City<span class="required">*</span></label>
+                    <div class="select-wrapper">
+                        <select formControlName="city">
+                            <option value="">Select City</option>
+                            <option *ngFor="let city of cities" [value]="city">
+                                {{ city }}
+                            </option>
+                        </select>
+                    </div>
+                    <small *ngIf="formControls['city'].touched && formControls['city'].invalid" class="error-msg">
+                        City is required.
+                    </small>
+                </div>
+
+                <!-- ZIP Code -->
+                <div class="form-group">
+                    <label>Zip/Postal Code<span class="required">*</span></label>
+                    <input type="text" formControlName="zipCode" placeholder="Enter Zip/Postal Code" />
+                    <small *ngIf="formControls['zipCode'].touched && formControls['zipCode'].invalid" class="error-msg">
+                        {{ formControls['zipCode'].errors?.['required']
+                        ? 'Zip code is required.'
+                        : 'Enter a valid zip code.' }}
+                    </small>
+                </div>
+
+            </div>
+
+            <!-- Modal Actions -->
+            <div class="modal-actions">
+                <button type="submit" class="add-btn">Add</button>
+                <button type="button" class="cancel-btn" (click)="onCancel()">Cancel</button>
+            </div>
+
+        </form>
+
+    </div>
+</div>

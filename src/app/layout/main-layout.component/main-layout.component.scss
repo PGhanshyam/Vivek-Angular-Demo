@@ -1,0 +1,22 @@
+.main-layout {
+    min-height: 100vh;
+
+    display: flex;
+
+    background: #f4f5f8;
+}
+
+.main-content {
+    width: calc(100% - 270px);
+
+    min-height: 100vh;
+}
+
+.page-content {
+    min-height:
+        calc(100vh - 80px);
+
+    padding: 25px;
+
+    overflow-x: hidden;
+}

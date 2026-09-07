@@ -1,0 +1,274 @@
+<div class="coupon-management-page">
+
+    <!-- Page Header & Action Controls -->
+    <div class="page-header">
+        <h2 class="page-title">Coupon Code</h2>
+
+        <div class="header-actions">
+
+            <!-- Search Input -->
+            <div class="search-box">
+                <span class="search-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </span>
+                <input type="text" placeholder="Search Coupon..." [(ngModel)]="searchText"
+                    (ngModelChange)="onFilterChange()" />
+            </div>
+
+            <!-- Filter Toggle Popover Container -->
+            <div class="filter-container">
+                <button type="button" class="filter-button" (click)="toggleFilterMenu()">
+                    Filter
+                    <span class="filter-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="4" y1="21" x2="4" y2="14"></line>
+                            <line x1="4" y1="10" x2="4" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12" y2="3"></line>
+                            <line x1="20" y1="21" x2="20" y2="16"></line>
+                            <line x1="20" y1="12" x2="20" y2="3"></line>
+                            <line x1="1" y1="14" x2="7" y2="14"></line>
+                            <line x1="9" y1="8" x2="15" y2="8"></line>
+                            <line x1="17" y1="16" x2="23" y2="16"></line>
+                        </svg>
+                    </span>
+                </button>
+
+                <!-- Filter Dropdown -->
+                <div *ngIf="showFilterMenu" class="filter-menu">
+                    <div class="filter-group">
+                        <label>Coupon Type</label>
+                        <select [(ngModel)]="selectedCouponType" (change)="onFilterChange()">
+                            <option value="">All Types</option>
+                            <option *ngFor="let type of couponTypes" [value]="type.couponTypeId">
+                                {{ type.couponTypeName }}
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label>Status</label>
+                        <select [(ngModel)]="selectedStatus" (change)="onFilterChange()">
+                            <option value="">All Status</option>
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
+                    </div>
+
+                    <button type="button" class="clear-filter-button" (click)="clearFilters()">
+                        Clear Filter
+                    </button>
+                </div>
+            </div>
+
+            <!-- Add New Button -->
+            <a routerLink="/coupon-code/add" class="btn-add">
+                + Add New
+            </a>
+
+        </div>
+    </div>
+
+    <!-- Coupon Data Table Card -->
+    <div class="table-container">
+        <div class="table-scroll">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th (click)="onSort('CouponCode')" class="sortable">Coupon Code
+                            <span [class.active]="sortColumn === 'CouponCode'"
+                                class="material-symbols-outlined sort-icon">{{
+                                sortColumn === 'CouponCode' ?
+                                (sortDirection === 'ASC' ? 'keyboard_arrow_up' : 'keyboard_arrow_down') : 'unfold_more'
+                                }}</span>
+                        </th>
+                        <th (click)="onSort('Description')" class="sortable">Description
+                            <span [class.active]="sortColumn === 'Description'"
+                                class="material-symbols-outlined sort-icon">{{
+                                sortColumn === 'Description' ?
+                                (sortDirection === 'ASC' ? 'keyboard_arrow_up' : 'keyboard_arrow_down') : 'unfold_more'
+                                }}</span>
+                        </th>
+                        <th (click)="onSort('StartDate')" class="sortable">Start Date
+                            <span [class.active]="sortColumn === 'StartDate'"
+                                class="material-symbols-outlined sort-icon">{{
+                                sortColumn === 'StartDate' ?
+                                (sortDirection === 'ASC' ? 'keyboard_arrow_up' : 'keyboard_arrow_down') : 'unfold_more'
+                                }}</span>
+                        </th>
+                        <th (click)="onSort('ExpiryDate')" class="sortable">Expire Date
+                            <span [class.active]="sortColumn === 'ExpiryDate'"
+                                class="material-symbols-outlined sort-icon">{{
+                                sortColumn === 'ExpiryDate' ?
+                                (sortDirection === 'ASC' ? 'keyboard_arrow_up' : 'keyboard_arrow_down') : 'unfold_more'
+                                }}</span>
+                        </th>
+                        <th (click)="onSort('DiscountType')" class="sortable">Discount Type
+                            <span [class.active]="sortColumn === 'DiscountType'"
+                                class="material-symbols-outlined sort-icon">{{
+                                sortColumn === 'DiscountType' ?
+                                (sortDirection === 'ASC' ? 'keyboard_arrow_up' : 'keyboard_arrow_down') : 'unfold_more'
+                                }}</span>
+                        </th>
+                        <th (click)="onSort('DiscountValue')" class="sortable">Discount
+                            <span [class.active]="sortColumn === 'DiscountValue'"
+                                class="material-symbols-outlined sort-icon">{{
+                                sortColumn === 'DiscountValue' ?
+                                (sortDirection === 'ASC' ? 'keyboard_arrow_up' : 'keyboard_arrow_down') : 'unfold_more'
+                                }}</span>
+                        </th>
+                        <th>Coupon Type</th>
+                        <th (click)="onSort('IsActive')" class="sortable">Status
+                            <span [class.active]="sortColumn === 'IsActive'"
+                                class="material-symbols-outlined sort-icon">{{
+                                sortColumn === 'IsActive' ?
+                                (sortDirection === 'ASC' ? 'keyboard_arrow_up' : 'keyboard_arrow_down') : 'unfold_more'
+                                }}</span>
+                        </th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <!-- paginatedCoupons -->
+                    <tr *ngFor="let coupon of coupons; let i = index">
+                        <!-- Index / Row Number -->
+                        <td class="text-muted">
+                            {{ (currentPage - 1) * pageSize + i + 1 }}
+                        </td>
+
+                        <!-- Coupon Code -->
+                        <td class="font-medium code-text">
+                            {{ coupon.couponCode }}
+                        </td>
+
+                        <!-- Description -->
+                        <td class="text-muted desc-text" [title]="coupon.description">
+                            {{ coupon.description || '-' }}
+                        </td>
+
+                        <!-- Start Date -->
+                        <td class="text-muted">
+                            {{ coupon.startDate }}
+                        </td>
+
+                        <!-- Expiry Date -->
+                        <td class="text-muted">
+                            {{ coupon.expiryDate }}
+                        </td>
+
+                        <!-- Discount Type -->
+                        <td>
+                            {{ coupon.discountType }}
+                        </td>
+
+                        <!-- Discount Value (£ / %) -->
+                        <td class="font-medium">
+                            <span *ngIf="coupon.discountType === 'Percentage'">
+                                {{ coupon.discountValue }}%
+                            </span>
+                            <span *ngIf="coupon.discountType === 'Fixed' || coupon.discountType === 'Fixed Amount'">
+                                £{{ coupon.discountValue }}
+                            </span>
+                        </td>
+
+                        <!-- Coupon Type -->
+                        <td>
+                            <span class="type-text">
+                                {{ coupon.couponTypeName || getCouponTypeName(coupon.couponTypeId) || '-' }}
+                            </span>
+                        </td>
+
+                        <!-- Status Badge -->
+                        <td>
+                            <span class="status-badge" [class.active]="coupon.isActive"
+                                [class.inactive]="!coupon.isActive">
+                                {{ coupon.isActive ? 'Active' : 'Inactive' }}
+                            </span>
+                        </td>
+
+                        <!-- Action Buttons -->
+                        <td>
+                            <div class="action-buttons">
+                                <button type="button" class="action-btn view-btn" title="View Coupon"
+                                    (click)="viewCoupon(coupon)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                    </svg>
+                                </button>
+
+                                <button type="button" class="action-btn edit-btn" title="Edit Coupon"
+                                    (click)="editCoupon(coupon)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                    </svg>
+                                </button>
+
+                                <button type="button" class="action-btn delete-btn" title="Delete Coupon"
+                                    (click)="deleteCoupon(coupon.couponId)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <polyline points="3 6 5 6 21 6"></polyline>
+                                        <path
+                                            d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                                        </path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- Empty State -->
+                    <!-- paginatedCoupons -->
+                    <tr *ngIf="coupons.length === 0">
+                        <td colspan="10" class="no-data">
+                            No coupons found.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Bottom Pagination Footer -->
+        <div class="pagination-section">
+            <div class="records-per-page">
+                <select [(ngModel)]="pageSize" (change)="onFilterChange()">
+                    <option [value]="10">10 Records Per Page</option>
+                    <option [value]="25">25 Records Per Page</option>
+                    <option [value]="50">50 Records Per Page</option>
+                </select>
+            </div>
+
+            <div class="pagination-right">
+                <div class="pagination-buttons">
+                    <button type="button" (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">
+                        ‹
+                    </button>
+
+                    <span class="page-indicator">
+                        Page {{ currentPage }} of {{ totalPages || 1 }}
+                    </span>
+
+                    <button type="button" (click)="changePage(currentPage + 1)"
+                        [disabled]="currentPage === totalPages || totalPages === 0">
+                        ›
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

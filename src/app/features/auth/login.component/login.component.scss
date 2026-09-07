@@ -1,0 +1,470 @@
+// $primary-pink: #c82468;
+// $primary-pink-hover: #b01b5a;
+// $text-dark: #222222;
+// $border-color: #e2e2e2;
+// $error-color: #d32f2f;
+
+// .login-wrapper {
+//     display: flex;
+//     width: 100vw;
+//     height: 100vh;
+//     overflow: hidden;
+//     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+//     // --- Left Side ---
+//     .login-left {
+//         flex: 1;
+//         background-color: #ffffff;
+//         display: flex;
+//         justify-content: center;
+//         align-items: center;
+//         position: relative;
+//         padding: 24px;
+
+//         // Corner Mandalas
+//         .mandala-pattern {
+//             position: absolute;
+//             width: 260px;
+//             height: 260px;
+//             pointer-events: none;
+//             background-image: url('/assets/images/mandala.jpg');
+//             background-size: contain;
+//             background-repeat: no-repeat;
+//             opacity: 0.85;
+
+//             &.top-left {
+//                 top: 0;
+//                 left: 0;
+//             }
+
+//             &.bottom-right {
+//                 bottom: 0;
+//                 right: 0;
+//                 transform: rotate(180deg);
+//             }
+//         }
+
+//         .login-container {
+//             width: 100%;
+//             max-width: 360px;
+//             z-index: 2;
+
+//             // Brand Title & Logo
+//             .logo-section {
+//                 text-align: center;
+//                 margin-bottom: 32px;
+
+//                 .logo-img {
+//                     width: 85px;
+//                     height: auto;
+//                     margin-bottom: 12px;
+//                 }
+
+//                 .brand-title {
+//                     font-family: 'Courier New', Courier, monospace;
+//                     font-size: 22px;
+//                     font-weight: 700;
+//                     letter-spacing: 2px;
+//                     color: #000000;
+//                     margin: 0;
+//                     display: inline-block;
+//                     border-bottom: 2.5px solid #000000;
+//                     padding-bottom: 3px;
+//                 }
+
+//                 .brand-subtitle {
+//                     font-family: 'Courier New', Courier, monospace;
+//                     font-size: 13px;
+//                     color: #111111;
+//                     margin-top: 6px;
+//                     letter-spacing: 1px;
+//                 }
+//             }
+
+//             // Form Controls
+//             .login-form {
+//                 display: flex;
+//                 flex-direction: column;
+
+//                 .form-group {
+//                     display: flex;
+//                     flex-direction: column;
+//                     margin-bottom: 16px;
+
+//                     label {
+//                         font-size: 12px;
+//                         font-weight: 600;
+//                         color: $text-dark;
+//                         margin-bottom: 6px;
+
+//                         .required {
+//                             color: $error-color;
+//                             margin-left: 2px;
+//                         }
+//                     }
+
+//                     input {
+//                         width: 100%;
+//                         height: 38px;
+//                         padding: 0 12px;
+//                         border: 1px solid $border-color;
+//                         border-radius: 2px;
+//                         font-size: 13px;
+//                         outline: none;
+//                         box-sizing: border-box;
+
+//                         &:focus {
+//                             border-color: $primary-pink;
+//                         }
+
+//                         &.invalid-input {
+//                             border-color: $error-color;
+//                         }
+
+//                         &::placeholder {
+//                             color: #cccccc;
+//                         }
+//                     }
+
+//                     .password-wrapper {
+//                         position: relative;
+
+//                         input {
+//                             padding-right: 36px;
+//                         }
+
+//                         .eye-icon-btn {
+//                             position: absolute;
+//                             right: 10px;
+//                             top: 50%;
+//                             transform: translateY(-50%);
+//                             background: none;
+//                             border: none;
+//                             color: #777777;
+//                             cursor: pointer;
+//                             padding: 0;
+//                             display: flex;
+
+//                             &:hover {
+//                                 color: $text-dark;
+//                             }
+//                         }
+//                     }
+
+//                     .error-text {
+//                         color: $error-color;
+//                         font-size: 11px;
+//                         margin-top: 4px;
+//                     }
+//                 }
+
+//                 .forgot-wrapper {
+//                     text-align: right;
+//                     margin-bottom: 20px;
+
+//                     .forgot-link {
+//                         color: $primary-pink;
+//                         font-size: 12px;
+//                         text-decoration: none;
+
+//                         &:hover {
+//                             text-decoration: underline;
+//                         }
+//                     }
+//                 }
+
+//                 .error-alert {
+//                     background-color: #ffebee;
+//                     color: $error-color;
+//                     padding: 8px 12px;
+//                     border-radius: 2px;
+//                     font-size: 12px;
+//                     margin-bottom: 16px;
+//                 }
+
+//                 .submit-btn {
+//                     width: 100%;
+//                     height: 40px;
+//                     background-color: $primary-pink;
+//                     color: #ffffff;
+//                     border: none;
+//                     border-radius: 2px;
+//                     font-size: 14px;
+//                     font-weight: 600;
+//                     cursor: pointer;
+//                     display: flex;
+//                     align-items: center;
+//                     justify-content: center;
+//                     gap: 6px;
+//                     transition: background-color 0.2s ease;
+
+//                     &:hover {
+//                         background-color: $primary-pink-hover;
+//                     }
+
+//                     &:disabled {
+//                         opacity: 0.7;
+//                         cursor: not-allowed;
+//                     }
+//                 }
+//             }
+//         }
+//     }
+
+//     // --- Right Side ---
+//     .login-right {
+//         flex: 1;
+//         background-image: url('/assets/images/gym-bg.jpg');
+//         background-size: cover;
+//         background-position: center;
+//         background-repeat: no-repeat;
+//     }
+// }
+
+// // Mobile Responsiveness
+// @media (max-width: 768px) {
+//     .login-wrapper {
+//         .login-right {
+//             display: none;
+//         }
+
+//         .login-left {
+//             width: 100%;
+//         }
+//     }
+// }
+
+$primary-pink: #c82468;
+$primary-pink-hover: #b01b5a;
+$text-dark: #111111;
+$border-color: #d1d1d1;
+$error-color: #d32f2f;
+
+
+// :host {
+//   display: block;
+//   min-height: 100vh;
+// }
+
+.login-wrapper {
+    display: flex;
+    width: 100%; // Changed from 100vw to 100% to stop horizontal scrollbar
+    height: 100vh;
+    overflow: hidden; // Keeps page locked to screen size
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+    // --- Left Section (Form) ---
+    .login-left {
+        flex: 1;
+        background-color: #ffffff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        padding: 20px;
+        overflow: hidden; // Clips corner mandala graphics so they don't cause scrolling
+
+        // Corner Mandala Patterns
+        .mandala-pattern {
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            pointer-events: none;
+            background-image: url('/assets/images/mandala2.jpg'); // Your transparent corner image
+            background-size: contain;
+            background-repeat: no-repeat;
+            opacity: 0.15; // Soft light gray effect like the design mockup
+
+            &.top-left {
+                top: -60px;
+                left: -60px;
+            }
+
+            &.bottom-right {
+                bottom: -60px;
+                right: -60px;
+                transform: rotate(180deg);
+            }
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 360px;
+            z-index: 2;
+
+            // Brand Logo Header
+            .logo-section {
+                text-align: center;
+                margin-bottom: 30px;
+
+                .logo-img {
+                    width: 80px; // Clean, natural proportion
+                    height: auto;
+                    object-fit: contain; // Prevents logo stretching
+                    margin-bottom: 12px;
+                }
+
+                .brand-title {
+                    font-family: 'Courier New', Courier, monospace;
+                    font-size: 22px;
+                    font-weight: 700;
+                    letter-spacing: 2px;
+                    color: #000000;
+                    margin: 0;
+                    display: inline-block;
+                    border-bottom: 2px solid #000000;
+                    padding-bottom: 2px;
+                }
+
+                .brand-subtitle {
+                    font-family: 'Courier New', Courier, monospace;
+                    font-size: 13px;
+                    color: #111111;
+                    margin-top: 6px;
+                    letter-spacing: 1px;
+                }
+            }
+
+            // Login Form Inputs
+            .login-form {
+                display: flex;
+                flex-direction: column;
+
+                .form-group {
+                    display: flex;
+                    flex-direction: column;
+                    margin-bottom: 16px;
+
+                    label {
+                        font-size: 12px;
+                        font-weight: 600;
+                        color: $text-dark;
+                        margin-bottom: 6px;
+
+                        .required {
+                            color: $error-color;
+                            margin-left: 2px;
+                        }
+                    }
+
+                    input {
+                        width: 100%;
+                        height: 40px;
+                        padding: 0 12px;
+                        border: 1px solid $border-color;
+                        border-radius: 2px;
+                        font-size: 13px;
+                        outline: none;
+                        box-sizing: border-box;
+
+                        &:focus {
+                            border-color: $primary-pink;
+                        }
+
+                        &.invalid-input {
+                            border-color: $error-color;
+                        }
+
+                        &::placeholder {
+                            color: #bbbbbb;
+                        }
+                    }
+
+                    .password-wrapper {
+                        position: relative;
+                        display: flex;
+                        align-items: center;
+
+                        input {
+                            padding-right: 36px;
+                        }
+
+                        .eye-icon-btn {
+                            position: absolute;
+                            right: 10px;
+                            background: none;
+                            border: none;
+                            color: #777777;
+                            cursor: pointer;
+                            padding: 0;
+                            display: flex;
+
+                            &:hover {
+                                color: $text-dark;
+                            }
+                        }
+                    }
+
+                    .error-text {
+                        color: $error-color;
+                        font-size: 11px;
+                        margin-top: 4px;
+                    }
+                }
+
+                .forgot-wrapper {
+                    text-align: right;
+                    margin-bottom: 22px;
+
+                    .forgot-link {
+                        color: $primary-pink;
+                        font-size: 12px;
+                        text-decoration: none;
+
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                    }
+                }
+
+                .submit-btn {
+                    width: 100%;
+                    height: 42px;
+                    background-color: $primary-pink;
+                    color: #ffffff;
+                    border: none;
+                    border-radius: 2px;
+                    font-size: 13px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 6px;
+                    transition: background-color 0.2s ease;
+
+                    &:hover {
+                        background-color: $primary-pink-hover;
+                    }
+
+                    &:disabled {
+                        opacity: 0.7;
+                        cursor: not-allowed;
+                    }
+                }
+            }
+        }
+    }
+
+    // --- Right Section (Gym Image) ---
+    .login-right {
+        flex: 1;
+        background-image: url('/assets/images/gym-bg1.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+}
+
+// Mobile responsive behavior
+@media (max-width: 768px) {
+    .login-wrapper {
+        .login-right {
+            display: none;
+        }
+
+        .login-left {
+            width: 100%;
+        }
+    }
+}

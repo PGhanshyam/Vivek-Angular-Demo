@@ -1,1 +1,38 @@
-/* You can add global styles to this file, and also import other style files */
+@use './app/features/auth/login.component/login.component.scss';
+@use './app/features/auth/forgot-password.component/forgot-password.component.scss';
+@use './app/features/auth/reset-password.component/reset-password.component.scss';
+@use './app/features/auth/change-password.component/change-password.component.scss';
+
+@use './app/layout/sidebar.component/sidebar.component.scss';
+@use './app/layout/header.component/header.component.scss';
+@use './app/layout/main-layout.component/main-layout.component.scss';
+
+@use './app/features/dashboard/dashboard.component/dashboard.component.scss';
+
+@use './app/features/user-management/user-list.component/user-list.component.scss';
+@use './app/features/user-management/user-view.component/user-view.component.scss';
+@use './app/features/user-management/user-add.component/user-add.component.scss';
+@use './app/features/user-management/user-edit.component/user-edit.component.scss';
+
+@use './app/features/coupon-management/coupon-list.component/coupon-list.component.scss';
+@use './app/features/coupon-management/coupon-view.component/coupon-view.component.scss';
+@use './app/features/coupon-management/coupon-add.component/coupon-add.component.scss';
+@use './app/features/coupon-management/coupon-edit.component/coupon-edit.component.scss';
+
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined');
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; // Prevents page scrolling completely
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}

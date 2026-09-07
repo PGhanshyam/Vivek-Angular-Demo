@@ -1,0 +1,80 @@
+<div class="login-wrapper">
+    <!-- Left Side: Login Form -->
+    <div class="login-left">
+        <!-- Mandala Patterns -->
+        <div class="mandala-pattern top-left"></div>
+        <div class="mandala-pattern bottom-right"></div>
+
+        <div class="login-container">
+            <!-- Brand & Logo -->
+            <div class="logo-section">
+                <img src="/assets/images/logo1.jpg" alt="Superari Life Logo" class="logo-img" />
+                <h1 class="brand-title">SUPERARI LIFE</h1>
+                <p class="brand-subtitle">the will to overcome</p>
+            </div>
+
+            <!-- Form -->
+            <form [formGroup]="loginForm" (ngSubmit)="login()" class="login-form">
+
+                <div class="form-group">
+                    <label for="email">Email<span class="required">*</span></label>
+                    <input id="email" type="email" formControlName="email" placeholder="johndoe@gmail.com"
+                        [class.invalid-input]="loginForm.get('email')?.touched && loginForm.get('email')?.invalid" />
+                    @if (loginForm.get('email')?.touched && loginForm.get('email')?.invalid) {
+                    <small class="error-text">Enter a valid email.</small>
+                    }
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password<span class="required">*</span></label>
+                    <div class="password-wrapper">
+                        <input id="password" [type]="showPassword ? 'text' : 'password'" formControlName="password"
+                            placeholder="••••••••" />
+                        <button type="button" class="eye-icon-btn" (click)="togglePasswordVisibility()"
+                            aria-label="Toggle password visibility">
+                            @if (showPassword) {
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                            } @else {
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path
+                                    d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24">
+                                </path>
+                                <line x1="1" y1="1" x2="23" y2="23"></line>
+                            </svg>
+                            }
+                        </button>
+                    </div>
+                </div>
+
+                <div class="forgot-wrapper">
+                    <a routerLink="/forgot-password" class="forgot-link">Forgot Password?</a>
+                </div>
+
+                @if (errorMessage) {
+                <div class="error-alert">
+                    {{ errorMessage }}
+                </div>
+                }
+
+                <button type="submit" class="submit-btn" [disabled]="isLoading">
+                    @if (isLoading) {
+                    Logging in...
+                    } @else {
+                    Login <span class="arrow">&rarr;</span>
+                    }
+                </button>
+
+            </form>
+        </div>
+    </div>
+
+    <!-- Right Side: Gym Background Image -->
+    <div class="login-right"></div>
+</div>

@@ -1,0 +1,291 @@
+$primary-pink: #c82468;
+$primary-pink-hover: #b01b5a;
+$text-dark: #111111;
+$label-color: #333333;
+$border-color: #e0e0e0;
+$error-color: #e53935;
+
+.edit-user-page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 16px;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+    .edit-user-card {
+        background-color: #ffffff;
+        width: 100%;
+        max-width: 580px;
+        border-radius: 8px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        max-height: 90vh;
+        animation: modalSlideIn 0.2s ease-out;
+
+        // Header Area
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            border-bottom: 1px solid #f0f0f0;
+
+            h2 {
+                font-size: 16px;
+                font-weight: 600;
+                color: $text-dark;
+                margin: 0;
+            }
+
+            .close-button {
+                background: transparent;
+                border: none;
+                color: #e53935;
+                cursor: pointer;
+                padding: 0;
+                display: flex;
+                align-items: center;
+                transition: opacity 0.2s ease;
+
+                &:hover {
+                    opacity: 0.8;
+                }
+            }
+        }
+
+        // Modal Scrollable Form
+        .modal-form {
+            padding: 24px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+
+            // Profile Avatar Section
+            .profile-section {
+                display: flex;
+                justify-content: flex-start;
+                margin-bottom: 8px;
+
+                .profile-image-wrapper {
+                    position: relative;
+                    width: 110px;
+                    height: 110px;
+
+                    .profile-image {
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 50%;
+                        object-fit: cover;
+                        border: 3px solid #e0e0e0;
+                    }
+
+                    .profile-placeholder {
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 50%;
+                        background-color: #edf2f7;
+                        border: 3px solid #cbd5e0;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 24px;
+                        font-weight: 600;
+                        color: #4a5568;
+                    }
+
+                    // Camera Badge Overlay
+                    .image-upload-button {
+                        position: absolute;
+                        bottom: 4px;
+                        right: 4px;
+                        width: 28px;
+                        height: 28px;
+                        background-color: $primary-pink;
+                        border: 2px solid #ffffff;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        cursor: pointer;
+                        transition: transform 0.15s ease;
+
+                        &:hover {
+                            transform: scale(1.08);
+                        }
+                    }
+                }
+            }
+
+            // Two Column Row Layout
+            .form-row {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+            }
+
+            // Individual Form Group
+            .form-group {
+                display: flex;
+                flex-direction: column;
+
+                &.full-width {
+                    width: 100%;
+                }
+
+                label {
+                    font-size: 12px;
+                    font-weight: 500;
+                    color: $label-color;
+                    margin-bottom: 6px;
+                }
+
+                input {
+                    width: 100%;
+                    height: 38px;
+                    padding: 0 12px;
+                    border: 1px solid $border-color;
+                    border-radius: 4px;
+                    font-size: 13px;
+                    color: #444444;
+                    outline: none;
+                    box-sizing: border-box;
+
+                    &:focus {
+                        border-color: $primary-pink;
+                    }
+
+                    &.invalid-input {
+                        border-color: $error-color;
+                    }
+
+                    &::placeholder {
+                        color: #bbbbbb;
+                    }
+                }
+
+                // Custom Select Dropdown Wrapper
+                .select-wrapper {
+                    position: relative;
+
+                    select {
+                        width: 100%;
+                        height: 38px;
+                        padding: 0 32px 0 12px;
+                        border: 1px solid $border-color;
+                        border-radius: 4px;
+                        font-size: 13px;
+                        color: #444444;
+                        background-color: #ffffff;
+                        outline: none;
+                        appearance: none;
+                        cursor: pointer;
+
+                        &:focus {
+                            border-color: $primary-pink;
+                        }
+                    }
+
+                    // Down Caret Arrow
+                    &::after {
+                        content: '';
+                        position: absolute;
+                        right: 12px;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        width: 0;
+                        height: 0;
+                        border-left: 4px solid transparent;
+                        border-right: 4px solid transparent;
+                        border-top: 5px solid #888888;
+                        pointer-events: none;
+                    }
+                }
+
+                .error-message {
+                    color: $error-color;
+                    font-size: 11px;
+                    margin-top: 4px;
+                }
+            }
+
+            // Action Buttons
+            .button-section {
+                display: flex;
+                justify-content: flex-end;
+                gap: 12px;
+                margin-top: 12px;
+
+                .update-button {
+                    height: 38px;
+                    min-width: 110px;
+                    background-color: $primary-pink;
+                    color: #ffffff;
+                    border: none;
+                    border-radius: 4px;
+                    font-size: 13px;
+                    font-weight: 500;
+                    cursor: pointer;
+                    transition: background-color 0.2s ease;
+
+                    &:hover {
+                        background-color: $primary-pink-hover;
+                    }
+                }
+
+                .cancel-button {
+                    height: 38px;
+                    min-width: 110px;
+                    background-color: #ffffff;
+                    color: $text-dark;
+                    border: 1px solid $border-color;
+                    border-radius: 4px;
+                    font-size: 13px;
+                    font-weight: 500;
+                    cursor: pointer;
+                    transition: background-color 0.2s ease;
+
+                    &:hover {
+                        background-color: #f7f7f7;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Modal Animation
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// Mobile Responsiveness
+@media (max-width: 600px) {
+    .edit-user-page {
+        .edit-user-card {
+            .modal-form {
+                .form-row {
+                    grid-template-columns: 1fr;
+                }
+            }
+        }
+    }
+}

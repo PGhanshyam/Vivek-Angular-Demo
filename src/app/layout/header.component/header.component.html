@@ -1,0 +1,61 @@
+<header class="header">
+    <h1 class="page-title">Dashboard</h1>
+
+    <div class="profile-area">
+        <!-- Profile Trigger Button -->
+        <button type="button" class="profile-button" (click)="toggleProfileMenu()">
+            <div class="profile-image">
+                <!-- Display avatar image if available, else fallback to initial -->
+                @if (userAvatarUrl) {
+                <img [src]="userAvatarUrl" [alt]="userName" />
+                } @else {
+                <span>{{ userName.charAt(0) }}</span>
+                }
+            </div>
+
+            <span class="user-name">{{ userName }}</span>
+
+            <!-- Down Caret Icon -->
+            <span class="arrow" [class.open]="isProfileMenuOpen">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </span>
+        </button>
+
+        <!-- Profile Dropdown Menu -->
+        @if (isProfileMenuOpen) {
+        <div class="profile-dropdown">
+
+            <button type="button" class="dropdown-item">
+                <span class="item-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </span>
+                <span class="item-text">My Account</span>
+                <span class="right-arrow">&rarr;</span>
+            </button>
+
+            <div class="dropdown-divider"></div>
+
+            <button type="button" class="dropdown-item" (click)="logout()">
+                <span class="item-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                </span>
+                <span class="item-text">Logout</span>
+                <span class="right-arrow">&rarr;</span>
+            </button>
+
+        </div>
+        }
+    </div>
+</header>

@@ -1,0 +1,370 @@
+$primary-pink: #c82468;
+$primary-pink-hover: #b01b5a;
+$text-dark: #111111;
+$label-color: #333333;
+$border-color: #e0e0e0;
+$error-color: #e53935;
+
+.coupon-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 16px;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+    .popup-container {
+        background-color: #ffffff;
+        width: 100%;
+        max-width: 580px;
+        border-radius: 8px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        max-height: 90vh;
+        animation: modalSlideIn 0.2s ease-out;
+
+        // Header Area
+        .popup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            border-bottom: 1px solid #f0f0f0;
+
+            h2 {
+                font-size: 16px;
+                font-weight: 600;
+                color: $text-dark;
+                margin: 0;
+            }
+
+            .close-btn {
+                background: transparent;
+                border: none;
+                color: #e53935;
+                cursor: pointer;
+                padding: 0;
+                display: flex;
+                align-items: center;
+                transition: opacity 0.2s ease;
+
+                &:hover {
+                    opacity: 0.8;
+                }
+            }
+        }
+
+        // Modal Scrollable Form
+        .popup-form {
+            padding: 24px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+
+            .form-group {
+                display: flex;
+                flex-direction: column;
+
+                label {
+                    font-size: 12px;
+                    font-weight: 500;
+                    color: $label-color;
+                    margin-bottom: 6px;
+
+                    .required {
+                        color: $error-color;
+                        margin-left: 2px;
+                    }
+                }
+
+                input[type="text"],
+                textarea {
+                    width: 100%;
+                    border: 1px solid $border-color;
+                    border-radius: 4px;
+                    font-size: 13px;
+                    color: #444444;
+                    outline: none;
+                    box-sizing: border-box;
+
+                    &:focus {
+                        border-color: $primary-pink;
+                    }
+
+                    &::placeholder {
+                        color: #9aa5b1;
+                    }
+                }
+
+                input[type="text"] {
+                    height: 38px;
+                    padding: 0 12px;
+                }
+
+                textarea {
+                    padding: 10px 12px;
+                    resize: vertical;
+                }
+
+                // Coupon Code Input + Auto Generate Button
+                .coupon-code {
+                    display: flex;
+                    align-items: center;
+
+                    input {
+                        flex: 1;
+                        height: 38px;
+                        border-top-right-radius: 0;
+                        border-bottom-right-radius: 0;
+                        border-right: none;
+                    }
+
+                    .generate-btn {
+                        height: 38px;
+                        padding: 0 16px;
+                        background-color: $primary-pink;
+                        color: #ffffff;
+                        border: none;
+                        border-top-right-radius: 4px;
+                        border-bottom-right-radius: 4px;
+                        font-size: 12px;
+                        font-weight: 500;
+                        cursor: pointer;
+                        display: flex;
+                        align-items: center;
+                        gap: 6px;
+                        white-space: nowrap;
+                        transition: background-color 0.2s ease;
+
+                        .barcode-icon {
+                            display: flex;
+                        }
+
+                        &:hover {
+                            background-color: $primary-pink-hover;
+                        }
+                    }
+                }
+
+                // Custom Select Caret Wrapper
+                .select-wrapper {
+                    position: relative;
+
+                    select {
+                        width: 100%;
+                        height: 38px;
+                        padding: 0 32px 0 12px;
+                        border: 1px solid $border-color;
+                        border-radius: 4px;
+                        font-size: 13px;
+                        color: #444444;
+                        background-color: #ffffff;
+                        outline: none;
+                        appearance: none;
+                        cursor: pointer;
+
+                        &:focus {
+                            border-color: $primary-pink;
+                        }
+                    }
+
+                    &::after {
+                        content: '';
+                        position: absolute;
+                        right: 12px;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        width: 0;
+                        height: 0;
+                        border-left: 4px solid transparent;
+                        border-right: 4px solid transparent;
+                        border-top: 5px solid #888888;
+                        pointer-events: none;
+                    }
+                }
+            }
+
+            // Two Column Row Layout
+            .row {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+
+                .col {
+                    display: flex;
+                    flex-direction: column;
+
+                    label {
+                        font-size: 12px;
+                        font-weight: 500;
+                        color: $label-color;
+                        margin-bottom: 6px;
+
+                        .required {
+                            color: $error-color;
+                            margin-left: 2px;
+                        }
+                    }
+
+                    input[type="date"],
+                    input[type="number"] {
+                        width: 100%;
+                        height: 38px;
+                        padding: 0 12px;
+                        border: 1px solid $border-color;
+                        border-radius: 4px;
+                        font-size: 13px;
+                        color: #444444;
+                        outline: none;
+                        box-sizing: border-box;
+
+                        &:focus {
+                            border-color: $primary-pink;
+                        }
+                    }
+
+                    // Discount Input Suffix Badge
+                    .discount-input-wrapper {
+                        display: flex;
+                        align-items: center;
+
+                        input {
+                            flex: 1;
+                            border-top-right-radius: 0;
+                            border-bottom-right-radius: 0;
+                            border-right: none;
+                        }
+
+                        .suffix-badge {
+                            height: 38px;
+                            width: 40px;
+                            background-color: #8fa0b3;
+                            color: #ffffff;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 13px;
+                            font-weight: 600;
+                            border-top-right-radius: 4px;
+                            border-bottom-right-radius: 4px;
+                        }
+                    }
+
+                    .select-wrapper {
+                        position: relative;
+
+                        select {
+                            width: 100%;
+                            height: 38px;
+                            padding: 0 32px 0 12px;
+                            border: 1px solid $border-color;
+                            border-radius: 4px;
+                            font-size: 13px;
+                            color: #444444;
+                            background-color: #ffffff;
+                            outline: none;
+                            appearance: none;
+                            cursor: pointer;
+
+                            &:focus {
+                                border-color: $primary-pink;
+                            }
+                        }
+
+                        &::after {
+                            content: '';
+                            position: absolute;
+                            right: 12px;
+                            top: 50%;
+                            transform: translateY(-50%);
+                            width: 0;
+                            height: 0;
+                            border-left: 4px solid transparent;
+                            border-right: 4px solid transparent;
+                            border-top: 5px solid #888888;
+                            pointer-events: none;
+                        }
+                    }
+                }
+            }
+
+            // Action Buttons
+            .button-group {
+                display: flex;
+                justify-content: flex-end;
+                gap: 12px;
+                margin-top: 12px;
+
+                .update-btn {
+                    height: 38px;
+                    min-width: 110px;
+                    background-color: $primary-pink;
+                    color: #ffffff;
+                    border: none;
+                    border-radius: 4px;
+                    font-size: 13px;
+                    font-weight: 500;
+                    cursor: pointer;
+                    transition: background-color 0.2s ease;
+
+                    &:hover {
+                        background-color: $primary-pink-hover;
+                    }
+                }
+
+                .cancel-btn {
+                    height: 38px;
+                    min-width: 110px;
+                    background-color: #ffffff;
+                    color: $text-dark;
+                    border: 1px solid $border-color;
+                    border-radius: 4px;
+                    font-size: 13px;
+                    font-weight: 500;
+                    cursor: pointer;
+                    transition: background-color 0.2s ease;
+
+                    &:hover {
+                        background-color: #f7f7f7;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Modal Animation
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// Mobile Responsiveness
+@media (max-width: 600px) {
+    .coupon-modal-overlay {
+        .popup-container {
+            .popup-form {
+                .row {
+                    grid-template-columns: 1fr;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,85 @@
+<!-- Modal Backdrop Overlay -->
+<div class="coupon-modal-overlay" (click)="closeView()">
+
+    <!-- Popup Modal Container -->
+    <div class="popup-container" *ngIf="coupon" (click)="$event.stopPropagation()">
+
+        <!-- Header -->
+        <div class="popup-header">
+            <h2>View Coupon Code</h2>
+
+            <button type="button" class="close-btn" (click)="closeView()" aria-label="Close">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="15" y1="9" x2="9" y2="15"></line>
+                    <line x1="9" y1="9" x2="15" y2="15"></line>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Body -->
+        <div class="popup-body">
+
+            <!-- Coupon Type -->
+            <div class="form-group">
+                <label>Coupon Type</label>
+                <input type="text" [value]="coupon.couponTypeName" readonly class="readonly-field">
+            </div>
+
+            <!-- Coupon Code -->
+            <div class="form-group">
+                <label>Enter Coupon Code</label>
+                <input type="text" [value]="coupon.couponCode" readonly class="readonly-field code-field">
+            </div>
+
+            <!-- Description -->
+            <div class="form-group" *ngIf="coupon.description">
+                <label>Description</label>
+                <textarea rows="3" readonly class="readonly-field">{{ coupon.description }}</textarea>
+            </div>
+
+            <!-- Dates -->
+            <div class="row">
+                <div class="col">
+                    <label>Start Date</label>
+                    <input type="text" [value]="coupon.startDate" readonly class="readonly-field">
+                </div>
+
+                <div class="col">
+                    <label>Expire Date</label>
+                    <input type="text" [value]="coupon.expiryDate" readonly class="readonly-field">
+                </div>
+            </div>
+
+            <!-- Discount -->
+            <div class="row">
+                <div class="col">
+                    <label>Discount Type</label>
+                    <input type="text" [value]="coupon.discountType" readonly class="readonly-field">
+                </div>
+
+                <div class="col">
+                    <label>Discount</label>
+                    <div class="discount-wrapper">
+                        <input type="text" [value]="coupon.discountValue" readonly class="readonly-field">
+                        <span class="suffix-badge">
+                            {{ coupon.discountType === 'Percentage' ? '%' : '£' }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Status -->
+            <div class="form-group">
+                <label>Status</label>
+                <input type="text" [value]="coupon.isActive ? 'Active' : 'Inactive'" readonly
+                    class="readonly-field status-text" [class.active-text]="coupon.isActive"
+                    [class.inactive-text]="!coupon.isActive">
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

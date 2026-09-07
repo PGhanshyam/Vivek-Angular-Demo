@@ -1,0 +1,269 @@
+<div class="user-management-page">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1>User Management</h1>
+
+        <div class="header-actions">
+
+            <!-- Search -->
+            <div class="search-box">
+                <span class="search-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </span>
+                <input type="text" placeholder="Search" [(ngModel)]="searchText" (ngModelChange)="onSearchChange()" />
+            </div>
+
+            <!-- Filter -->
+            <div class="filter-container">
+                <button type="button" class="filter-button" (click)="toggleFilterMenu()">
+                    Filter
+                    <span class="filter-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="4" y1="21" x2="4" y2="14"></line>
+                            <line x1="4" y1="10" x2="4" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12" y2="3"></line>
+                            <line x1="20" y1="21" x2="20" y2="16"></line>
+                            <line x1="20" y1="12" x2="20" y2="3"></line>
+                            <line x1="1" y1="14" x2="7" y2="14"></line>
+                            <line x1="9" y1="8" x2="15" y2="8"></line>
+                            <line x1="17" y1="16" x2="23" y2="16"></line>
+                        </svg>
+                    </span>
+                </button>
+
+                <div *ngIf="showFilterMenu" class="filter-menu">
+                    <div class="filter-group">
+                        <label>Role</label>
+                        <select [(ngModel)]="selectedRole" (change)="onFilterChange()">
+                            <option value="">All Roles</option>
+                            <option value="1">Admin</option>
+                            <option value="2">Yoga Instructor</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label>Status</label>
+                        <select [(ngModel)]="selectedStatus" (change)="onFilterChange()">
+                            <option value="">All Status</option>
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
+                    </div>
+
+                    <button type="button" class="clear-filter-button" (click)="clearFilters()">
+                        Clear Filter
+                    </button>
+                </div>
+            </div>
+
+            <!-- Add User -->
+            <a *ngIf="isAdmin" routerLink="/user-management/add" class="add-user-button">
+                + Add New
+            </a>
+
+        </div>
+    </div>
+
+    <!-- User Table -->
+    <div class="table-container">
+        <div class="table-scroll">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th (click)="onSort('FirstName')" class="sortable">First Name
+                            <span [class.active]="sortColumn === 'FirstName'"
+                                class="material-symbols-outlined sort-icon">
+                                {{ sortColumn === 'FirstName' ? (sortDirection === 'ASC' ? 'keyboard_arrow_up' :
+                                'keyboard_arrow_down') : 'unfold_more' }}
+                            </span>
+                        </th>
+                        <th (click)="onSort('LastName')" class="sortable">Last Name
+                            <span [class.active]="sortColumn === 'LastName'"
+                                class="material-symbols-outlined sort-icon">
+                                {{ sortColumn === 'LastName' ? (sortDirection === 'ASC' ? 'keyboard_arrow_up' :
+                                'keyboard_arrow_down') : 'unfold_more' }}</span>
+                        </th>
+                        <th>Name Of Role</th>
+                        <th (click)="onSort('Email')" class="sortable">Email
+                            <span [class.active]="sortColumn === 'Email'" class="material-symbols-outlined sort-icon">
+                                {{ sortColumn === 'Email' ? (sortDirection === 'ASC' ? 'keyboard_arrow_up' :
+                                'keyboard_arrow_down') : 'unfold_more' }}</span>
+                        </th>
+                        <th (click)="onSort('PhoneNo')" class="sortable">Phone Number
+                            <span [class.active]="sortColumn === 'PhoneNo'" class="material-symbols-outlined sort-icon">
+                                {{ sortColumn === 'PhoneNo' ? (sortDirection === 'ASC' ? 'keyboard_arrow_up' :
+                                'keyboard_arrow_down') : 'unfold_more' }}</span>
+                        </th>
+                        <th (click)="onSort('Address')" class="sortable">Address
+                            <span [class.active]="sortColumn === 'Address'" class="material-symbols-outlined sort-icon">
+                                {{ sortColumn === 'Address' ? (sortDirection === 'ASC' ? 'keyboard_arrow_up' :
+                                'keyboard_arrow_down') : 'unfold_more' }}</span>
+                        </th>
+                        <th (click)="onSort('IsActive')" class="sortable">Status
+                            <span [class.active]="sortColumn === 'IsActive'"
+                                class="material-symbols-outlined sort-icon">
+                                {{ sortColumn === 'IsActive' ? (sortDirection === 'ASC' ? 'keyboard_arrow_up' :
+                                'keyboard_arrow_down') : 'unfold_more' }}</span>
+                        </th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <!-- paginatedUsers -->
+                    <tr *ngFor="let user of users">
+                        <!-- Profile -->
+                        <td>
+                            <div class="user-image">
+                                <img *ngIf="user.profileImage" [src]="user.profileImage" [alt]="user.firstName"
+                                    (error)="handleImageError(user)" />
+                                <span *ngIf="!user.profileImage">
+                                    {{ getInitials(user) }}
+                                </span>
+                            </div>
+                        </td>
+
+                        <td class="font-medium">{{ user.firstName || '-' }}</td>
+                        <td class="font-medium">{{ user.lastName || '-' }}</td>
+
+                        <!-- Role -->
+                        <td>
+                            <span class="role-badge" [class.yoga-role]="user.roleName === 'Yoga Instructor'">
+                                {{ user.roleName || '-' }}
+                            </span>
+                        </td>
+
+                        <!-- Email -->
+                        <td class="email-column">{{ user.email || '-' }}</td>
+
+                        <!-- Phone -->
+                        <td class="phone-column">{{ user.phoneNo || '-' }}</td>
+
+                        <!-- Address -->
+                        <td class="address-column" [title]="user.address || '-'">
+                            {{ user.address || '-' }}
+                        </td>
+
+                        <!-- Status -->
+                        <td>
+                            <span class="status-badge" [class.inactive]="!user.isActive">
+                                {{ user.isActive ? 'Active' : 'Inactive' }}
+                            </span>
+                        </td>
+
+                        <!-- Actions -->
+                        <td>
+                            <div class="action-buttons">
+                                <button type="button" class="view-button" title="View User" (click)="viewUser(user)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                    </svg>
+                                </button>
+
+                                <button *ngIf="isAdmin" type="button" class="edit-button" title="Edit User" (click)="editUser(user)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                    </svg>
+                                </button>
+
+                                <button *ngIf="isAdmin" type="button" class="delete-button" title="Delete User"
+                                    (click)="deleteUser(user.userId)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <polyline points="3 6 5 6 21 6"></polyline>
+                                        <path
+                                            d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                                        </path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- Empty Data -->
+                    <!-- paginatedUsers.length === 0 -->
+                    <tr *ngIf="users.length === 0">
+                        <td colspan="9" class="no-data">
+                            No users found.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination-section">
+
+            <!-- Records per page -->
+            <div class="records-per-page">
+                <select [(ngModel)]="pageSize" (change)="changePageSize()">
+                    <option *ngFor="let size of pageSizeOptions" [ngValue]="size">
+                        {{ size }} Records Per Page
+                    </option>
+                </select>
+            </div>
+
+            <!-- Pagination Controls & Info -->
+            <div class="pagination-right">
+
+                <div class="pagination-buttons">
+                    <button type="button" (click)="previousPage()" [disabled]="currentPage === 1 || totalCount === 0">
+                        ‹
+                    </button>
+
+                    <button *ngFor="let page of pageNumbers" type="button" [class.active]="currentPage === page"
+                        (click)="changePage(page)">
+                        {{ page }}
+                    </button>
+
+                    <button type="button" (click)="nextPage()"
+                        [disabled]="currentPage === totalPages || totalCount === 0">
+                        ›
+                    </button>
+                </div>
+
+                <span class="record-information">
+                    <!-- Showing
+                    {{
+                    filteredUsers.length === 0
+                    ? 0
+                    : ((currentPage - 1) * pageSize) + 1
+                    }}
+                    to
+                    {{
+                    Math.min(
+                    currentPage * pageSize,
+                    filteredUsers.length
+                    )
+                    }}
+                    of
+                    {{ filteredUsers.length }} -->
+                    Showing
+                    {{ getStartRecord() }}
+                    to
+                    {{ getEndRecord() }}
+                    of
+                    {{ totalCount }}
+                </span>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>

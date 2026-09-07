@@ -1,0 +1,205 @@
+$primary-pink: #c82468;
+$text-dark: #111111;
+$text-muted: #666666;
+$label-color: #333333;
+$readonly-bg: #f2f3f5;
+$readonly-border: #e2e4e8;
+$readonly-text: #6b7280;
+
+.view-user-page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 16px;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+    .user-details-card {
+        background-color: #ffffff;
+        width: 100%;
+        max-width: 580px;
+        border-radius: 8px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        max-height: 90vh;
+        animation: modalSlideIn 0.2s ease-out;
+
+        // Header Area
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            border-bottom: 1px solid #f0f0f0;
+
+            h2 {
+                font-size: 16px;
+                font-weight: 600;
+                color: $text-dark;
+                margin: 0;
+            }
+
+            .close-button {
+                background: transparent;
+                border: none;
+                color: #e53935;
+                cursor: pointer;
+                padding: 0;
+                display: flex;
+                align-items: center;
+                transition: opacity 0.2s ease;
+
+                &:hover {
+                    opacity: 0.8;
+                }
+            }
+        }
+
+        // Modal Scrollable Body Content
+        .modal-body {
+            padding: 24px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+
+            // Profile Avatar Section
+            .profile-section {
+                display: flex;
+                justify-content: flex-start;
+                margin-bottom: 8px;
+
+                .profile-image {
+                    width: 100px;
+                    height: 100px;
+                    border-radius: 50%;
+                    object-fit: cover;
+                    border: 3px solid #e0e0e0;
+                }
+
+                .profile-placeholder {
+                    width: 100px;
+                    height: 100px;
+                    border-radius: 50%;
+                    background-color: #e2e8f0;
+                    border: 3px solid #cbd5e0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 24px;
+                    font-weight: 600;
+                    color: #4a5568;
+                }
+            }
+
+            // Two Column Row Layout
+            .form-row {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+            }
+
+            // Individual Form Field Group
+            .form-group {
+                display: flex;
+                flex-direction: column;
+
+                &.full-width {
+                    width: 100%;
+                }
+
+                label {
+                    font-size: 12px;
+                    font-weight: 500;
+                    color: $label-color;
+                    margin-bottom: 6px;
+                }
+
+                // Read-only Box Styling
+                .readonly-field {
+                    width: 100%;
+                    min-height: 38px;
+                    padding: 8px 12px;
+                    background-color: $readonly-bg;
+                    border: 1px solid $readonly-border;
+                    border-radius: 4px;
+                    font-size: 13px;
+                    color: $readonly-text;
+                    box-sizing: border-box;
+                    display: flex;
+                    align-items: center;
+                    word-break: break-word;
+                }
+            }
+        }
+
+        // Fallback UI when User is Not Found
+        .not-found {
+            padding: 40px 24px;
+            text-align: center;
+
+            h3 {
+                font-size: 18px;
+                color: $text-dark;
+                margin: 0 0 8px 0;
+            }
+
+            p {
+                font-size: 14px;
+                color: $text-muted;
+                margin: 0 0 20px 0;
+            }
+
+            .back-button {
+                height: 38px;
+                padding: 0 20px;
+                background-color: $primary-pink;
+                color: #ffffff;
+                border: none;
+                border-radius: 4px;
+                font-size: 13px;
+                font-weight: 500;
+                cursor: pointer;
+
+                &:hover {
+                    opacity: 0.9;
+                }
+            }
+        }
+    }
+}
+
+// Keyframe Animation
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// Mobile Responsiveness
+@media (max-width: 600px) {
+    .view-user-page {
+        .user-details-card {
+            .modal-body {
+                .form-row {
+                    grid-template-columns: 1fr;
+                }
+            }
+        }
+    }
+}

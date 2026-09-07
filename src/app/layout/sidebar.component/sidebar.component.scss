@@ -1,0 +1,136 @@
+$sidebar-bg: #0d0d0d;
+$active-bg: #c82468;
+$text-inactive: #666666;
+$text-active: #ffffff;
+$border-color: #222222;
+
+.sidebar {
+    width: 260px;
+    height: 100vh;
+    background-color: $sidebar-bg;
+    display: flex;
+    flex-direction: column;
+    padding: 24px 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    user-select: none;
+
+    // Header / Logo area
+    .logo-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 16px 20px 16px;
+        border-bottom: 1px solid $border-color;
+        margin-bottom: 8px;
+
+        .logo-img {
+            width: 70px;
+            height: auto;
+            margin-bottom: 10px;
+            // Turns the black wing logo white for dark sidebar theme
+            filter: brightness(0) invert(1);
+        }
+
+        .brand-title {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: #ffffff;
+            margin: 0;
+            display: inline-block;
+            border-bottom: 2px solid #ffffff;
+            padding-bottom: 2px;
+        }
+
+        .brand-subtitle {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 11px;
+            color: #dddddd;
+            margin-top: 5px;
+            letter-spacing: 1px;
+        }
+    }
+
+    // Common Menu Item Styling
+    .menu-item {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        width: 100%;
+        height: 48px;
+        padding: 0 24px;
+        color: $text-inactive;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        box-sizing: border-box;
+        transition: all 0.2s ease;
+
+        .icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            svg {
+                stroke: $text-inactive;
+                transition: stroke 0.2s ease;
+            }
+        }
+
+        &:hover {
+            color: #ffffff;
+
+            .icon svg {
+                stroke: #ffffff;
+            }
+        }
+
+        // Active Tab State (Highlighted Pink Bar)
+        &.active {
+            background-color: $active-bg;
+            color: $text-active;
+
+            .icon svg {
+                stroke: $text-active;
+            }
+        }
+    }
+
+    // Navigation Links Container
+    .menu {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        overflow-y: auto;
+
+        /* Hide Scrollbar */
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    // Bottom Settings & Logout Links
+    .bottom-menu {
+        display: flex;
+        flex-direction: column;
+        margin-top: auto;
+
+        .menu-item.logout {
+            &:hover {
+                color: #ff5252;
+
+                .icon svg {
+                    stroke: #ff5252;
+                }
+            }
+        }
+    }
+}
