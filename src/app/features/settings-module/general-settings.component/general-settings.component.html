@@ -1,0 +1,212 @@
+<div class="settings-page">
+
+    <!-- ========================================= -->
+    <!-- Settings Header with Breadcrumb & Tabs    -->
+    <!-- ========================================= -->
+    <div class="settings-header">
+        <div class="breadcrumb">
+            <span class="settings-title">Settings</span>
+            <span class="separator">/</span>
+            <span class="active-title">General</span>
+        </div>
+
+        <div class="settings-tabs">
+            <button type="button" class="tab" (click)="openPrivacyPolicy()">
+                Privacy Policy
+            </button>
+
+            <button type="button" class="tab" (click)="openTermsConditions()">
+                Terms and Conditions
+            </button>
+
+            <button type="button" class="tab" (click)="openAbout()">
+                About
+            </button>
+
+            <button type="button" class="tab" (click)="openTestimonial()">
+                Testimonial
+            </button>
+
+            <button type="button" class="tab active">
+                General
+            </button>
+        </div>
+    </div>
+
+    <form [formGroup]="generalSettingsForm">
+
+        <!-- ========================================= -->
+        <!-- Section 1: General Settings               -->
+        <!-- ========================================= -->
+        <div class="settings-section">
+            <h2 class="section-title">General Settings</h2>
+            <div class="divider"></div>
+
+            <!-- Admin Email Address -->
+            <div class="form-group">
+                <label>
+                    Admin Email Address<span class="required">*</span>
+                </label>
+
+                <div class="input-wrapper">
+                    <div class="input-icon email-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="#00b4d8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
+                            </path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                    </div>
+
+                    <input type="email" formControlName="adminEmail" placeholder="Enter admin email address" />
+                </div>
+
+                <small class="error" *ngIf="
+            generalSettingsForm.get('adminEmail')?.touched &&
+            generalSettingsForm.get('adminEmail')?.invalid
+          ">
+                    Please enter a valid email address.
+                </small>
+            </div>
+
+            <!-- Tax -->
+            <div class="form-group">
+                <label>
+                    Tax<span class="required">*</span>
+                </label>
+
+                <div class="input-wrapper">
+                    <div class="input-icon tax-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="#e63946" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="9" y1="13" x2="15" y2="13"></line>
+                            <line x1="9" y1="17" x2="15" y2="17"></line>
+                        </svg>
+                    </div>
+
+                    <input type="text" formControlName="taxPercentage" placeholder="10%" />
+                </div>
+
+                <small class="error" *ngIf="
+            generalSettingsForm.get('taxPercentage')?.touched &&
+            generalSettingsForm.get('taxPercentage')?.invalid
+          ">
+                    Tax must be between 0 and 100.
+                </small>
+            </div>
+
+            <button type="button" class="update-button" (click)="updateGeneralSettings()" [disabled]="isLoading">
+                Update
+            </button>
+        </div>
+
+        <!-- ========================================= -->
+        <!-- Section 2: Social Media Settings          -->
+        <!-- ========================================= -->
+        <div class="settings-section social-section">
+            <h2 class="section-title">Social Media Settings</h2>
+            <div class="divider"></div>
+
+            <!-- Facebook -->
+            <div class="form-group">
+                <label>Facebook</label>
+                <div class="input-wrapper">
+                    <div class="input-icon social-icon facebook">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                            fill="#1877f2">
+                            <path
+                                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                        </svg>
+                    </div>
+
+                    <input type="url" formControlName="facebookUrl" placeholder="add facebook link here" />
+
+                    <div class="status-icon" [class.active]="generalSettingsForm.get('facebookUrl')?.value">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"
+                            stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Twitter X -->
+            <div class="form-group">
+                <label>Twitter X</label>
+                <div class="input-wrapper">
+                    <div class="input-icon social-icon twitter">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                            fill="#000000">
+                            <path
+                                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                        </svg>
+                    </div>
+
+                    <input type="url" formControlName="twitterUrl" placeholder="add Twitter X link here" />
+
+                    <div class="status-icon" [class.active]="generalSettingsForm.get('twitterUrl')?.value">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"
+                            stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Instagram -->
+            <div class="form-group">
+                <label>Instagram</label>
+                <div class="input-wrapper">
+                    <div class="input-icon social-icon instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="#e1306c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </div>
+
+                    <input type="url" formControlName="instagramUrl" placeholder="add Instagram link here" />
+
+                    <div class="status-icon" [class.active]="generalSettingsForm.get('instagramUrl')?.value">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"
+                            stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Youtube -->
+            <div class="form-group">
+                <label>Youtube</label>
+                <div class="input-wrapper">
+                    <div class="input-icon social-icon youtube">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                            fill="#ff0000">
+                            <path
+                                d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                        </svg>
+                    </div>
+
+                    <input type="url" formControlName="youtubeUrl" placeholder="add Youtube link here" />
+
+                    <div class="status-icon" [class.active]="generalSettingsForm.get('youtubeUrl')?.value">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"
+                            stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" class="update-button" (click)="updateGeneralSettings()" [disabled]="isLoading">
+                Update
+            </button>
+        </div>
+
+    </form>
+
+</div>

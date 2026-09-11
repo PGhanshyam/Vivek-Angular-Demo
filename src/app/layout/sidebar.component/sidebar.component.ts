@@ -16,6 +16,12 @@ export class SidebarComponent {
     private alertService: AlertService
   ) { }
 
+  openSettings(): void {
+    this.router.navigate([
+      '/settings/privacy-policy'
+    ]);
+  }
+
   async logout(): Promise<void> {
 
     const confirmed = await this.alertService.confirmLogout();
@@ -30,5 +36,5 @@ export class SidebarComponent {
 
     this.router.navigate(['/login']);
   }
-  
+
 }

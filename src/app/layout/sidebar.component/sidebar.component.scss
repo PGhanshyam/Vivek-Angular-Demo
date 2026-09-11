@@ -16,40 +16,95 @@ $border-color: #222222;
     user-select: none;
 
     // Header / Logo area
+    // .logo-section {
+    //     display: flex;
+    //     flex-direction: column;
+    //     align-items: center;
+    //     padding: 0 16px 20px 16px;
+    //     border-bottom: 1px solid $border-color;
+    //     margin-bottom: 8px;
+
+    //     .logo-img {
+    //         width: 70px;
+    //         height: auto;
+    //         margin-bottom: 10px;
+    //         // Turns the black wing logo white for dark sidebar theme
+    //         filter: brightness(0) invert(1);
+    //     }
+
+    //     .brand-title {
+    //         font-family: 'Courier New', Courier, monospace;
+    //         font-size: 18px;
+    //         font-weight: 700;
+    //         letter-spacing: 1.5px;
+    //         color: #ffffff;
+    //         margin: 0;
+    //         display: inline-block;
+    //         border-bottom: 2px solid #ffffff;
+    //         padding-bottom: 2px;
+    //     }
+
+    //     .brand-subtitle {
+    //         font-family: 'Courier New', Courier, monospace;
+    //         font-size: 11px;
+    //         color: #dddddd;
+    //         margin-top: 5px;
+    //         letter-spacing: 1px;
+    //     }
+    // }
+
     .logo-section {
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 0 16px 20px 16px;
+        justify-content: center;
+        padding: 24px 20px 20px;
         border-bottom: 1px solid $border-color;
         margin-bottom: 8px;
+        text-align: center;
+        user-select: none;
 
         .logo-img {
-            width: 70px;
+            width: 62px; // Precise proportions matching the reference
             height: auto;
-            margin-bottom: 10px;
-            // Turns the black wing logo white for dark sidebar theme
-            filter: brightness(0) invert(1);
+            object-fit: contain;
+            margin-bottom: 14px;
+            display: block;
+            mix-blend-mode: screen; // Seamlessly hides the black background
         }
 
-        .brand-title {
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 18px;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            color: #ffffff;
-            margin: 0;
-            display: inline-block;
-            border-bottom: 2px solid #ffffff;
-            padding-bottom: 2px;
-        }
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
 
-        .brand-subtitle {
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 11px;
-            color: #dddddd;
-            margin-top: 5px;
-            letter-spacing: 1px;
+            .brand-title {
+                font-family: 'Courier New', Courier, monospace;
+                font-size: 19px;
+                font-weight: 700;
+                letter-spacing: 2px;
+                color: #ffffff;
+                margin: 0;
+                line-height: 1;
+                white-space: nowrap;
+            }
+
+            // Horizontal divider matching exact width of the title
+            .brand-line {
+                width: 175px;
+                height: 2px;
+                background-color: #ffffff;
+                margin: 6px 0 5px;
+            }
+
+            .brand-subtitle {
+                font-family: 'Courier New', Courier, monospace;
+                font-size: 11px;
+                color: #eaeaea;
+                letter-spacing: 1px;
+                white-space: nowrap;
+            }
         }
     }
 

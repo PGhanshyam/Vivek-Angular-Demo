@@ -293,35 +293,86 @@ $error-color: #d32f2f;
             z-index: 2;
 
             // Brand Logo Header
+            // .logo-section {
+            //     text-align: center;
+            //     margin-bottom: 30px;
+
+            //     .logo-img {
+            //         width: 80px; // Clean, natural proportion
+            //         height: auto;
+            //         object-fit: contain; // Prevents logo stretching
+            //         margin-bottom: 12px;
+            //     }
+
+            //     .brand-title {
+            //         font-family: 'Courier New', Courier, monospace;
+            //         font-size: 22px;
+            //         font-weight: 700;
+            //         letter-spacing: 2px;
+            //         color: #000000;
+            //         margin: 0;
+            //         display: inline-block;
+            //         border-bottom: 2px solid #000000;
+            //         padding-bottom: 2px;
+            //     }
+
+            //     .brand-subtitle {
+            //         font-family: 'Courier New', Courier, monospace;
+            //         font-size: 13px;
+            //         color: #111111;
+            //         margin-top: 6px;
+            //         letter-spacing: 1px;
+            //     }
+            // }
+
             .logo-section {
+                display: flex;
+                flex-direction: column; // Centers everything vertically (stacked)
+                align-items: center; // Centers horizontally
+                justify-content: center;
                 text-align: center;
-                margin-bottom: 30px;
+                margin-bottom: 32px;
 
-                .logo-img {
-                    width: 80px; // Clean, natural proportion
+                .brand-logo-img {
+                    width: 78px;
                     height: auto;
-                    object-fit: contain; // Prevents logo stretching
-                    margin-bottom: 12px;
+                    object-fit: contain;
+                    margin-bottom: 14px; // Spacing below wings
+                    display: block;
                 }
 
-                .brand-title {
-                    font-family: 'Courier New', Courier, monospace;
-                    font-size: 22px;
-                    font-weight: 700;
-                    letter-spacing: 2px;
-                    color: #000000;
-                    margin: 0;
-                    display: inline-block;
-                    border-bottom: 2px solid #000000;
-                    padding-bottom: 2px;
-                }
+                .brand-text-container {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center; // Keeps text and underline centered
 
-                .brand-subtitle {
-                    font-family: 'Courier New', Courier, monospace;
-                    font-size: 13px;
-                    color: #111111;
-                    margin-top: 6px;
-                    letter-spacing: 1px;
+                    .brand-title {
+                        font-family: 'Courier New', Courier, monospace;
+                        font-size: 24px;
+                        font-weight: 700;
+                        letter-spacing: 2px;
+                        color: #000000;
+                        margin: 0;
+                        line-height: 1.2;
+                    }
+
+                    .brand-underline {
+                        width: 100%;
+                        min-width: 220px;
+                        height: 2.5px;
+                        background-color: #000000;
+                        margin-top: 6px;
+                        margin-bottom: 8px;
+                    }
+
+                    .brand-subtitle {
+                        font-family: 'Courier New', Courier, monospace;
+                        font-size: 13px;
+                        letter-spacing: 1px;
+                        color: #111111;
+                        margin-top: 2px;
+                        white-space: nowrap;
+                    }
                 }
             }
 

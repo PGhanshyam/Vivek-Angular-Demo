@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { UserService } from '../../../core/services/user.service';
 import { AlertService } from '../../../core/services/alert.service';
+
+import { Country, State, City } from 'country-state-city';
 
 @Component({
   selector: 'app-user-add',
@@ -30,11 +32,11 @@ export class UserAddComponent {
     }
   ];
 
-  countries = ['India', 'United States', 'United Kingdom', 'Canada'];
+  countries = ['India', 'United States', 'United Kingdom', 'Australia'];
 
   states = ['Gujarat', 'Maharashtra', 'Rajasthan', 'Delhi'];
 
-  cities = ['Ahmedabad', 'Surat', 'Vadodara', 'Mumbai', 'Pune'];
+  cities = ['Ahmedabad', 'Surat', 'Vadodara', 'Mumbai', 'Pune', 'New Delhi', 'Jaipur', 'Ajmer'];
 
   constructor(
     private readonly formBuilder: FormBuilder,
@@ -231,3 +233,4 @@ export class UserAddComponent {
     this.closeModal();
   }
 }
+

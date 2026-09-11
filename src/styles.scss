@@ -19,6 +19,15 @@
 @use './app/features/coupon-management/coupon-add.component/coupon-add.component.scss';
 @use './app/features/coupon-management/coupon-edit.component/coupon-edit.component.scss';
 
+@use './app/features/settings-module/privacy-policy.component/privacy-policy.component.scss';
+@use './app/features/settings-module/terms-conditions.component/terms-conditions.component.scss';
+
+@use './app/features/settings-module/testimonial/testimonial-list.component/testimonial-list.component.scss';
+@use './app/features/settings-module/testimonial/testimonial-add.component/testimonial-add.component.scss';
+@use './app/features/settings-module/testimonial/testimonial-edit.component/testimonial-edit.component.scss';
+
+@use './app/features/settings-module/general-settings.component/general-settings.component.scss';
+
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined');
 
 html,
