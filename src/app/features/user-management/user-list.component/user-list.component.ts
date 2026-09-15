@@ -241,16 +241,46 @@ export class UserListComponent implements OnInit {
     this.loadUsers();
   }
 
-  async deleteUser(userId: number): Promise<void> {
+  // async deleteUser(userId: number): Promise<void> {
 
-    const confirmed = await this.alertService.confirmDelete('user');
+  //   const user = this.users.find(u => u.id === userId);
+  //   const confirmed = await this.alertService.confirmDeleteWithDetails('user', user?.name ?? 'this user');
+  //   if (!confirmed) {
+  //     return;
+  //   }
+  //   this.alertService.loading('Deleting user...');
+
+  //   this.userService.deleteUser(userId).subscribe({
+
+  //     next: () => {
+  //       this.alertService.close();
+  //       this.alertService.toastSuccess('User deleted successfully.');
+  //       if (this.users.length === 1 && this.currentPage > 1) {
+  //         this.currentPage--;
+  //       }
+  //       this.loadUsers();
+  //     },
+
+  //     error: (error) => {
+  //       console.error('Error deleting user:', error);
+  //       this.alertService.close();
+  //       const errorMessage = error?.error?.message ?? error?.error?.title ?? error?.message ?? 'Unable to delete user.';
+  //       this.alertService.error(errorMessage);
+  //     }
+
+  //   });
+  // }
+
+  async deleteUser(userId: number): Promise<void> {
+    const user = this.users.find(u => u.userId === userId);
+    const fullName = user ? `${user.firstName} ${user.lastName}` : 'this user';
+    const confirmed = await this.alertService.confirmDeleteWithDetails('user', fullName, user?.profileImage);
     if (!confirmed) {
       return;
     }
     this.alertService.loading('Deleting user...');
 
     this.userService.deleteUser(userId).subscribe({
-
       next: () => {
         this.alertService.close();
         this.alertService.toastSuccess('User deleted successfully.');
@@ -259,14 +289,12 @@ export class UserListComponent implements OnInit {
         }
         this.loadUsers();
       },
-
       error: (error) => {
         console.error('Error deleting user:', error);
         this.alertService.close();
         const errorMessage = error?.error?.message ?? error?.error?.title ?? error?.message ?? 'Unable to delete user.';
         this.alertService.error(errorMessage);
       }
-
     });
   }
 

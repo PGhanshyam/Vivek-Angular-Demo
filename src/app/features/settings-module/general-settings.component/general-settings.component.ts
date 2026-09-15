@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { SettingsService } from '../../../core/services/settings.service';
 import { AlertService } from '../../../core/services/alert.service';
 
 @Component({
   selector: 'app-general-settings.component',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, RouterLinkActive],
   templateUrl: './general-settings.component.html',
   styleUrl: './general-settings.component.scss',
 })
@@ -30,6 +30,7 @@ export class GeneralSettingsComponent implements OnInit {
   }
 
   private initializeForm(): void {
+
     this.generalSettingsForm = this.fb.group({
       adminEmail: [
         '',
@@ -49,11 +50,8 @@ export class GeneralSettingsComponent implements OnInit {
       ],
 
       facebookUrl: [''],
-
       twitterUrl: [''],
-
       instagramUrl: [''],
-
       youtubeUrl: ['']
     });
   }
@@ -62,98 +60,71 @@ export class GeneralSettingsComponent implements OnInit {
 
     this.isLoading = true;
 
-    this.settingsService
-      .getGeneralSettings()
-      .subscribe({
-        next: (response) => {
+    this.settingsService.getGeneralSettings().subscribe({
 
-          this.isLoading = false;
-
-          if (response) {
-            this.generalSettingsForm.patchValue({
-              adminEmail: response.adminEmail,
-              taxPercentage: response.taxPercentage,
-              facebookUrl: response.facebookUrl,
-              twitterUrl: response.twitterUrl,
-              instagramUrl: response.instagramUrl,
-              youtubeUrl: response.youtubeUrl
-            });
-          }
-        },
-
-        error: (error) => {
-
-          this.isLoading = false;
-
-          console.error(
-            'Error loading general settings:',
-            error
-          );
-
-          this.alertService.error(
-            'Failed to load general settings.'
-          );
+      next: (response) => {
+        this.isLoading = false;
+        const data = response?.data ?? response?.Data ?? response;
+        if (data) {
+          this.generalSettingsForm.patchValue({
+            adminEmail: data.adminEmail ?? data.AdminEmail ?? '',
+            taxPercentage: data.taxPercentage ?? data.TaxPercentage ?? 0,
+            facebookUrl: data.facebookUrl ?? data.FacebookUrl ?? '',
+            twitterUrl: data.twitterUrl ?? data.TwitterUrl ?? '',
+            instagramUrl: data.instagramUrl ?? data.InstagramUrl ?? '',
+            youtubeUrl: data.youtubeUrl ?? data.YoutubeUrl ?? ''
+          });
         }
-      });
+      },
+
+      error: (error) => {
+        this.isLoading = false;
+        console.error('Error loading general settings:', error);
+        // If 404 or missing, form defaults remain available for initial setup
+        if (error?.status !== 404) {
+          this.alertService.error('Failed to load general settings.');
+        }
+      }
+
+    });
   }
 
   updateGeneralSettings(): void {
 
     if (this.generalSettingsForm.invalid) {
-
       this.generalSettingsForm.markAllAsTouched();
-
       return;
     }
 
+    const rawTax = String(this.generalSettingsForm.value.taxPercentage ?? 0).replace(/[^0-9.]/g, '');
+    const taxNum = parseFloat(rawTax) || 0;
+
     const request = {
-      adminEmail:
-        this.generalSettingsForm.value.adminEmail,
-
-      taxPercentage:
-        this.generalSettingsForm.value.taxPercentage,
-
-      facebookUrl:
-        this.generalSettingsForm.value.facebookUrl || null,
-
-      twitterUrl:
-        this.generalSettingsForm.value.twitterUrl || null,
-
-      instagramUrl:
-        this.generalSettingsForm.value.instagramUrl || null,
-
-      youtubeUrl:
-        this.generalSettingsForm.value.youtubeUrl || null
+      adminEmail: this.generalSettingsForm.value.adminEmail,
+      taxPercentage: taxNum,
+      facebookUrl: this.generalSettingsForm.value.facebookUrl || null,
+      twitterUrl: this.generalSettingsForm.value.twitterUrl || null,
+      instagramUrl: this.generalSettingsForm.value.instagramUrl || null,
+      youtubeUrl: this.generalSettingsForm.value.youtubeUrl || null
     };
 
     this.alertService.loading('Updating settings...');
 
-    this.settingsService
-      .updateGeneralSettings(request)
-      .subscribe({
-        next: (response) => {
+    this.settingsService.updateGeneralSettings(request).subscribe({
 
-          this.alertService.close();
+      next: (response) => {
+        this.alertService.close();
+        this.alertService.toastSuccess('General settings updated successfully.');
+      },
 
-          this.alertService.toastSuccess(
-            'General settings updated successfully.'
-          );
-        },
+      error: (error) => {
+        this.alertService.close();
+        console.error('Error updating general settings:', error);
+        const errMsg = error?.error?.message || error?.error?.title || 'Failed to update general settings.';
+        this.alertService.error(errMsg);
+      }
 
-        error: (error) => {
-
-          this.alertService.close();
-
-          console.error(
-            'Error updating general settings:',
-            error
-          );
-
-          this.alertService.error(
-            'Failed to update general settings.'
-          );
-        }
-      });
+    });
   }
 
   openPrivacyPolicy(): void {

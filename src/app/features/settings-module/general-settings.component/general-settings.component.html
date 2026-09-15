@@ -11,25 +11,21 @@
         </div>
 
         <div class="settings-tabs">
-            <button type="button" class="tab" (click)="openPrivacyPolicy()">
+            <a routerLink="/settings/privacy-policy" routerLinkActive="active" class="tab">
                 Privacy Policy
-            </button>
-
-            <button type="button" class="tab" (click)="openTermsConditions()">
+            </a>
+            <a routerLink="/settings/terms-conditions" routerLinkActive="active" class="tab">
                 Terms and Conditions
-            </button>
-
-            <button type="button" class="tab" (click)="openAbout()">
+            </a>
+            <a routerLink="/settings/about" routerLinkActive="active" class="tab">
                 About
-            </button>
-
-            <button type="button" class="tab" (click)="openTestimonial()">
+            </a>
+            <a routerLink="/settings/testimonials" routerLinkActive="active" class="tab">
                 Testimonial
-            </button>
-
-            <button type="button" class="tab active">
+            </a>
+            <a routerLink="/settings/general" routerLinkActive="active" class="tab">
                 General
-            </button>
+            </a>
         </div>
     </div>
 

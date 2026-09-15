@@ -291,7 +291,7 @@ export class CouponListComponent implements OnInit {
 
   async deleteCoupon(couponId: number): Promise<void> {
 
-    const confirmed = await this.alertService.confirmDelete('coupon');
+    const confirmed = await this.alertService.confirmDeleteWithCoupon('coupon');
 
     if (!confirmed) {
       return;

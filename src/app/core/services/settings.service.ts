@@ -13,7 +13,7 @@ export class SettingsService {
 
     private readonly settingsApiUrl = `${environment.apiUrl}/settings`;
     private readonly testimonialsApiUrl = `${environment.apiUrl}/testimonials`;
-    private readonly generalSettingsApiUrl = `${environment.apiUrl}/general-settings`;
+    private readonly generalSettingsApiUrl = `${environment.apiUrl}/GeneralSettings`;
 
     constructor(
         private readonly http: HttpClient

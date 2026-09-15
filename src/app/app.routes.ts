@@ -170,11 +170,17 @@ export const routes: Routes = [
                         }
                     },
 
-                    // {
-                    //     path: 'testimonial',
-                    //     redirectTo: 'testimonials',
-                    //     pathMatch: 'full'
-                    // },
+                    {
+                        path: 'testimonial',
+                        redirectTo: 'testimonials',
+                        pathMatch: 'full'
+                    },
+
+                    {
+                        path: 'about',
+                        redirectTo: 'privacy-policy',
+                        pathMatch: 'full'
+                    },
 
                     {
                         path: 'testimonials',
